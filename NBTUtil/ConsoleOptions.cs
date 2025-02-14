@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NDesk.Options;
+using Substrate.Nbt;
 
 namespace NBTUtil
 {
@@ -28,6 +29,8 @@ namespace NBTUtil
         public ConsoleCommand Command { get; private set; }
         public List<string> Values { get; private set; }
         public bool ShowTypes { get; private set; }
+        public EndiannessType Endian { get => (_endianIsLittle) ? EndiannessType.LittleEndian : EndiannessType.BigEndian ; }
+        bool _endianIsLittle = false; /* Hack to have default value without newer C# features */
 
         public ConsoleOptions ()
         {
@@ -36,6 +39,7 @@ namespace NBTUtil
 
             _options = new OptionSet() {
                 { "path=", "Path to NBT tag from current directory", v => Path = v },
+                { "endian=", "Endianness type. Either big or little.", v => _endianIsLittle = v.ToLower().Equals("little") },
                 { "print", "Print the value(s) of a tag", v => Command = ConsoleCommand.Print },
                 { "printtree", "Print the NBT tree rooted at a tag", v => Command = ConsoleCommand.PrintTree },
                 { "types", "Show data types when printing tags", v => ShowTypes = true },
@@ -43,7 +47,7 @@ namespace NBTUtil
                     Command = ConsoleCommand.Json;
                     Values.Add(v);
                 }},
-                { "setvalue=", "Set a single tag value", v => { 
+                { "setvalue=", "Set a single tag value", v => {
                     Command = ConsoleCommand.SetValue;
                     _currentKey = "setvalue";
                     if (!string.IsNullOrEmpty(v))

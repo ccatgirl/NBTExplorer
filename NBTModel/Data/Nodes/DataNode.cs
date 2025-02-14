@@ -160,6 +160,16 @@ namespace NBTExplorer.Model
             Nodes.Clear();
         }
 
+        public void Save (EndiannessType endian, HeaderType header)
+        {
+            foreach (DataNode node in Nodes)
+                if (node.IsModified)
+                    node.Save(endian, header);
+
+            SaveCore(endian, header);
+            IsDataModified = false;
+        }
+
         public void Save ()
         {
             foreach (DataNode node in Nodes)
@@ -172,6 +182,10 @@ namespace NBTExplorer.Model
 
         protected virtual void SaveCore ()
         {
+        }
+        protected virtual void SaveCore (EndiannessType endian, HeaderType header)
+        {
+            SaveCore();
         }
 
         public virtual string NodeName

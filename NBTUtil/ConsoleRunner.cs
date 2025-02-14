@@ -45,7 +45,7 @@ namespace NBTUtil
             int successCount = 0;
             int failCount = 0;
 
-            foreach (var targetNode in new NbtPathEnumerator(_options.Path)) {
+            foreach (var targetNode in new NbtPathEnumerator(_options.Path, _options.Endian)) {
                 if (!op.CanProcess(targetNode)) {
                     Console.WriteLine(targetNode.NodePath + ": ERROR (invalid command)");
                     failCount++;
@@ -66,12 +66,12 @@ namespace NBTUtil
             return true;
         }
 
-        private DataNode OpenFile (string path)
+        private DataNode OpenFile (string path, EndiannessType endian)
         {
             DataNode node = null;
             foreach (var item in FileTypeRegistry.RegisteredTypes) {
                 if (item.Value.NamePatternTest(path))
-                    node = item.Value.NodeCreate(path);
+                    node = item.Value.NodeCreate(path, endian);
             }
 
             return node;

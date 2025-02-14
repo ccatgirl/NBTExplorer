@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Substrate.Nbt;
+using System;
 using System.Collections.Generic;
 
 namespace NBTExplorer.Model
 {
     public delegate bool NamePatternTestFunc (string path);
-    public delegate DataNode NodeCreateFunc (string path);
+    public delegate DataNode NodeCreateFunc (string path, EndiannessType endian);
 
     public class FileTypeRecord
     {

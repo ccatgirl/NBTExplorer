@@ -2,6 +2,12 @@
 
 NBTExplorer is an open-source NBT editor for all common sources of NBT data.  It's mainly intended for editing [Minecraft](http://www.minecraft.net) game data.
 
+## TODO list
+- [x] Endian selection dialog for opening
+- [ ] Header and endian dialog for saving
+- [ ] Save as?
+- [ ] Command-line support for endian conversion
+
 ## Supported Formats
 
 NBTExplorer supports reading and writing the following formats:

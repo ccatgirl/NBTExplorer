@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using NBTModel.Interop;
+using Substrate.Nbt;
 
 namespace NBTExplorer.Model
 {
@@ -17,7 +18,7 @@ namespace NBTExplorer.Model
             _path = path;
         }
 
-        public static CubicRegionDataNode TryCreateFrom (string path)
+        public static CubicRegionDataNode TryCreateFrom (string path, EndiannessType endian)
         {
             return new CubicRegionDataNode(path);
         }

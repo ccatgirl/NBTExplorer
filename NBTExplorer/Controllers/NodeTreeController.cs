@@ -202,18 +202,18 @@ namespace NBTExplorer.Controllers
 
         #region Load / Save
 
-        public void Save ()
+        public void Save (EndiannessType endian, HeaderType header)
         {
             foreach (TreeNode node in _nodeTree.Nodes) {
                 DataNode dataNode = node.Tag as DataNode;
                 if (dataNode != null)
-                    dataNode.Save();
+                    dataNode.Save(endian, header);
             }
 
             OnSelectionInvalidated();
         }
 
-        public int OpenPaths (string[] paths)
+        public int OpenPaths (string[] paths, EndiannessType endian)
         {
             _nodeTree.Nodes.Clear();
 
@@ -221,18 +221,18 @@ namespace NBTExplorer.Controllers
 
             foreach (string path in paths) {
                 if (Directory.Exists(path)) {
-                    DirectoryDataNode node = new DirectoryDataNode(path);
+                    DirectoryDataNode node = new DirectoryDataNode(path, endian);
                     _nodeTree.Nodes.Add(CreateUnexpandedNode(node));
                 }
                 else if (File.Exists(path)) {
                     DataNode node = null;
                     foreach (var item in FileTypeRegistry.RegisteredTypes) {
                         if (item.Value.NamePatternTest(path))
-                            node = item.Value.NodeCreate(path);
+                            node = item.Value.NodeCreate(path, endian);
                     }
 
                     if (node == null)
-                        node = NbtFileDataNode.TryCreateFrom(path);
+                        node = NbtFileDataNode.TryCreateFrom(path, endian);
                     if (node != null)
                         _nodeTree.Nodes.Add(CreateUnexpandedNode(node));
                     else

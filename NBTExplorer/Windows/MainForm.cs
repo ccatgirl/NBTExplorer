@@ -165,7 +165,7 @@ namespace NBTExplorer.Windows
             using (OpenFileDialog ofd = new OpenFileDialog() {
                 RestoreDirectory = true,
                 Multiselect = true,
-                Filter = "All Files|*|NBT Files (*.dat, *.schematic)|*.dat;*.nbt;*.schematic|Region Files (*.mca, *.mcr)|*.mca;*.mcr",
+                Filter = "All Files|*|NBT Files (*.dat, *.schematic)|*.dat;*.dat_old;*.nbt;*.schematic|Region Files (*.mca, *.mcr)|*.mca;*.mcr",
                 FilterIndex = 0,
             }) {
                 if (ofd.ShowDialog() == DialogResult.OK) {
@@ -212,9 +212,15 @@ namespace NBTExplorer.Windows
             UpdateUI();
         }
 
-        private void OpenPaths (string[] paths)
+        private void OpenPaths(string[] paths)
         {
-            int failCount = _controller.OpenPaths(paths);
+            DialogResult isBigEndian = MessageBox.Show("Open the file(s) with Big Endian? (Will default to little if detects a header)", "Endianness selection", MessageBoxButtons.YesNo);
+            OpenPaths(paths, (isBigEndian == DialogResult.Yes) ? EndiannessType.BigEndian : EndiannessType.LittleEndian);
+        }
+        private void OpenPaths (string[] paths, EndiannessType endian)
+        {
+            int failCount = _controller.OpenPaths(paths, endian);
+
 
             foreach (string path in paths) {
                 if (Directory.Exists(path))
@@ -269,7 +275,7 @@ namespace NBTExplorer.Windows
                     path = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);
                 }
 
-                OpenPaths(new string[] { path });
+                OpenPaths(new string[] { path }, EndiannessType.BigEndian); /* MCPC uses big endian, default to that */
             }
             catch (Exception e) {
                 MessageBox.Show("Could not open default Minecraft save directory");

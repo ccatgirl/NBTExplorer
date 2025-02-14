@@ -27,11 +27,16 @@ namespace NBTExplorer.Model
 
         public static NbtFileDataNode TryCreateFrom (string path)
         {
-            return TryCreateFrom(path, CompressionType.GZip)
-                ?? TryCreateFrom(path, CompressionType.None);
+            return TryCreateFrom(path, EndiannessType.BigEndian);
         }
 
-        private static NbtFileDataNode TryCreateFrom (string path, CompressionType compressionType)
+        public static NbtFileDataNode TryCreateFrom(string path, EndiannessType endian)
+        {
+            return TryCreateFrom(path, CompressionType.GZip, endian)
+                ?? TryCreateFrom(path, CompressionType.None, endian);
+        }
+
+        private static NbtFileDataNode TryCreateFrom (string path, CompressionType compressionType, EndiannessType endian)
         {
             try {
                 NBTFile file = new NBTFile(path);
@@ -136,6 +141,17 @@ namespace NBTExplorer.Model
             NBTFile file = new NBTFile(_path);
             using (Stream str = file.GetDataOutputStream(_compressionType)) {
                 _tree.WriteTo(str);
+            }
+        }
+
+        protected override void SaveCore (EndiannessType endian, HeaderType header)
+        {
+            NBTFile file = new NBTFile(_path);
+            using (Stream str = file.GetDataOutputStream(_compressionType)) {
+                HeaderType oldHeaderType = _tree.headerType;
+                _tree.headerType = header;
+                _tree.WriteTo(str);
+                _tree.headerType = oldHeaderType;
             }
         }
 

@@ -1,16 +1,19 @@
 ﻿using System.IO;
 using System.Collections.Generic;
 using System;
+using Substrate.Nbt;
 
 namespace NBTExplorer.Model
 {
     public class DirectoryDataNode : DataNode
     {
         private string _path;
+        private EndiannessType _endian;
 
-        public DirectoryDataNode (string path)
+        public DirectoryDataNode (string path, EndiannessType endian)
         {
             _path = path;
+            _endian = endian;
         }
 
         protected override NodeCapabilities Capabilities
@@ -58,14 +61,14 @@ namespace NBTExplorer.Model
         protected override void ExpandCore ()
         {
             foreach (string dirpath in Directory.GetDirectories(_path)) {
-                Nodes.Add(new DirectoryDataNode(dirpath));
+                Nodes.Add(new DirectoryDataNode(dirpath, _endian));
             }
 
             foreach (string filepath in Directory.GetFiles(_path)) {
                 DataNode node = null;
                 foreach (var item in FileTypeRegistry.RegisteredTypes) {
                     if (item.Value.NamePatternTest(filepath))
-                        node = item.Value.NodeCreate(filepath);
+                        node = item.Value.NodeCreate(filepath, _endian);
                 }
 
                 if (node != null)

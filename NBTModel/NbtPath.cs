@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Substrate.Nbt;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
@@ -14,11 +15,13 @@ namespace NBTExplorer.Model
 
         private string _pathRoot;
         private List<string> _pathParts = new List<string>();
+        private EndiannessType _endian;
 
-        public NbtPathEnumerator (string path)
+        public NbtPathEnumerator (string path, EndiannessType endian)
         {
             _pathRoot = Path.GetPathRoot(path);
             _pathParts = new List<string>(path.Substring(_pathRoot.Length).Split('/', '\\'));
+            _endian = endian;
 
             if (string.IsNullOrEmpty(_pathRoot))
                 _pathRoot = Directory.GetCurrentDirectory();
@@ -26,7 +29,7 @@ namespace NBTExplorer.Model
 
         public IEnumerator<DataNode> GetEnumerator ()
         {
-            DataNode dataNode = new DirectoryDataNode(_pathRoot);
+            DataNode dataNode = new DirectoryDataNode(_pathRoot, _endian);
             dataNode.Expand();
 
             foreach (DataNode childNode in EnumerateNodes(dataNode, _pathParts))

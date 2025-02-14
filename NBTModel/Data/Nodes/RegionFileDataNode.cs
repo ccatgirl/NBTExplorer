@@ -4,6 +4,7 @@ using Substrate.Core;
 using System.Collections.Generic;
 using NBTModel.Interop;
 using System;
+using Substrate.Nbt;
 
 namespace NBTExplorer.Model
 {
@@ -20,7 +21,7 @@ namespace NBTExplorer.Model
             _path = path;
         }
 
-        public static RegionFileDataNode TryCreateFrom (string path)
+        public static RegionFileDataNode TryCreateFrom (string path, EndiannessType endian)
         {
             return new RegionFileDataNode(path);
         }

@@ -29,3 +29,4 @@ NBTExplorer supports reading and writing the following formats:
 VS automatically modified some project files for newer .NET and that's what I targeted with the APIs, so it might be needed to rewrite the changes to work with older versions.
 Tested on Windows 10, should work with Mono and correct packages.
 [Also see the original README](https://github.com/jaquadro/NBTExplorer#system-requirements).
+If you don't trust the bundled Substrate.dll, you can build your own, [fork source](https://github.com/leha-code/Substrate).

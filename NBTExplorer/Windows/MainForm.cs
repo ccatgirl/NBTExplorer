@@ -212,6 +212,24 @@ namespace NBTExplorer.Windows
             UpdateUI();
         }
 
+        private bool AskSaveFormat(out EndiannessType endian, out HeaderType header)
+        {
+            SaveDialogForm f = new SaveDialogForm();
+            f.ShowDialog();
+            endian = f._endian;
+            header = f._header;
+            return f._wasAccepted;
+        }
+
+        private void SaveAction()
+        {
+
+            EndiannessType endian;
+            HeaderType header;
+            if (AskSaveFormat(out endian, out header))
+                _controller.Save(endian, header);
+        }
+
         private void OpenPaths(string[] paths)
         {
             DialogResult isBigEndian = MessageBox.Show("Open the file(s) with Big Endian? (Will default to little if detects a header)", "Endianness selection", MessageBoxButtons.YesNo);
@@ -686,7 +704,7 @@ namespace NBTExplorer.Windows
 
         private void _buttonSave_Click (object sender, EventArgs e)
         {
-            _controller.Save();
+            SaveAction();
         }
 
         private void _buttonEdit_Click (object sender, EventArgs e)
@@ -813,7 +831,7 @@ namespace NBTExplorer.Windows
 
         private void _menuItemSave_Click (object sender, EventArgs e)
         {
-            _controller.Save();
+            SaveAction();
         }
 
         private void _menuItemExit_Click (object sender, EventArgs e)

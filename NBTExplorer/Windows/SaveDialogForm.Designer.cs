@@ -36,16 +36,17 @@
             this.BigEndianButton = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.EntityButton = new System.Windows.Forms.RadioButton();
-            this.LevelButton = new System.Windows.Forms.RadioButton();
             this.NoneButton = new System.Windows.Forms.RadioButton();
+            this.LevelButton = new System.Windows.Forms.RadioButton();
+            this.EntityButton = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SaveButton
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.SaveButton.Location = new System.Drawing.Point(95, 66);
+            this.SaveButton.Enabled = false;
+            this.SaveButton.Location = new System.Drawing.Point(95, 72);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 0;
@@ -56,7 +57,7 @@
             // CancelButton
             // 
             this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.CancelButton.Location = new System.Drawing.Point(176, 66);
+            this.CancelButton.Location = new System.Drawing.Point(176, 72);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 1;
@@ -119,35 +120,10 @@
             this.panel1.Size = new System.Drawing.Size(172, 24);
             this.panel1.TabIndex = 6;
             // 
-            // EntityButton
-            // 
-            this.EntityButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.EntityButton.AutoSize = true;
-            this.EntityButton.Location = new System.Drawing.Point(115, 4);
-            this.EntityButton.Name = "EntityButton";
-            this.EntityButton.Size = new System.Drawing.Size(51, 17);
-            this.EntityButton.TabIndex = 0;
-            this.EntityButton.TabStop = true;
-            this.EntityButton.Text = "Entity";
-            this.EntityButton.UseVisualStyleBackColor = true;
-            this.EntityButton.CheckedChanged += new System.EventHandler(this.EntityButton_CheckedChanged);
-            // 
-            // LevelButton
-            // 
-            this.LevelButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.LevelButton.AutoSize = true;
-            this.LevelButton.Location = new System.Drawing.Point(58, 4);
-            this.LevelButton.Name = "LevelButton";
-            this.LevelButton.Size = new System.Drawing.Size(51, 17);
-            this.LevelButton.TabIndex = 1;
-            this.LevelButton.TabStop = true;
-            this.LevelButton.Text = "Level";
-            this.LevelButton.UseVisualStyleBackColor = true;
-            this.LevelButton.CheckedChanged += new System.EventHandler(this.LevelButton_CheckedChanged);
-            // 
             // NoneButton
             // 
             this.NoneButton.AutoSize = true;
+            this.NoneButton.Enabled = false;
             this.NoneButton.Location = new System.Drawing.Point(3, 4);
             this.NoneButton.Name = "NoneButton";
             this.NoneButton.Size = new System.Drawing.Size(51, 17);
@@ -157,13 +133,40 @@
             this.NoneButton.UseVisualStyleBackColor = true;
             this.NoneButton.CheckedChanged += new System.EventHandler(this.NoneButton_CheckedChanged);
             // 
+            // LevelButton
+            // 
+            this.LevelButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.LevelButton.AutoSize = true;
+            this.LevelButton.Enabled = false;
+            this.LevelButton.Location = new System.Drawing.Point(58, 4);
+            this.LevelButton.Name = "LevelButton";
+            this.LevelButton.Size = new System.Drawing.Size(51, 17);
+            this.LevelButton.TabIndex = 1;
+            this.LevelButton.TabStop = true;
+            this.LevelButton.Text = "Level";
+            this.LevelButton.UseVisualStyleBackColor = true;
+            this.LevelButton.CheckedChanged += new System.EventHandler(this.LevelButton_CheckedChanged);
+            // 
+            // EntityButton
+            // 
+            this.EntityButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.EntityButton.AutoSize = true;
+            this.EntityButton.Enabled = false;
+            this.EntityButton.Location = new System.Drawing.Point(115, 4);
+            this.EntityButton.Name = "EntityButton";
+            this.EntityButton.Size = new System.Drawing.Size(51, 17);
+            this.EntityButton.TabIndex = 0;
+            this.EntityButton.TabStop = true;
+            this.EntityButton.Text = "Entity";
+            this.EntityButton.UseVisualStyleBackColor = true;
+            this.EntityButton.CheckedChanged += new System.EventHandler(this.EntityButton_CheckedChanged);
+            // 
             // SaveDialogForm
             // 
             this.AcceptButton = this.SaveButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(263, 101);
-            this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.BigEndianButton);

@@ -1,12 +1,17 @@
 # NBTExplorer
 
-NBTExplorer is an open-source NBT editor for all common sources of NBT data.  It's mainly intended for editing [Minecraft](http://www.minecraft.net) game data.
+NBTExplorer is an open-source NBT editor for all common sources of NBT data. It's mainly intended for editing [Minecraft](http://www.minecraft.net) game data.
 
 ## TODO list
 - [x] Endian selection dialog for opening
-- [ ] Header and endian dialog for saving
+- [x] Header and endian dialog for saving
 - [ ] Save as?
 - [ ] Command-line support for endian conversion
+- [ ] Fix dependencies for .NET framework 2.0
+- [ ] LE Substrate option for opening with a specific header type (And failing if not that type)
+- [ ] LE Substrate fix loading/saving header-less LE files
+
+Loading big-endian files with a header is not supported.
 
 ## Supported Formats
 
@@ -21,19 +26,6 @@ NBTExplorer supports reading and writing the following formats:
 
 ## System Requirements
 
-### Windows
-
-Windows XP or later, .NET Framework 2.0 or later.
-
-### Linux
-
-NBTExplorer is compatible with recent Mono runtimes, at least 2.6 or later.
-Minimally, your system needs the `mono-core` and `mono-winforms` packages, or whatever package set is equivalent.
-
-### Mac
-
-A separate Mac version with a native UI is available.  All Mono dependencies are included within the app package.
-Minimum supported OS is OSX 10.8 Mountain Lion, but it may run on versions as early as Snow Leopard.
-
-The Windows version of NBTExplorer can still be used if the Mac version does not work.  You will need to install the
-Mono runtime, and then run NBTExplorer with Mono from the command line.
+VS automatically modified some project files for newer .NET and that's what I targeted with the APIs, so it might be needed to rewrite the changes to work with older versions.
+Tested on Windows 10, should work with Mono and correct packages.
+[Also see the original README](https://github.com/jaquadro/NBTExplorer#system-requirements).
